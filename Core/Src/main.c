@@ -46,6 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+SPI_HandleTypeDef hspiX;
 
 /* USER CODE END PV */
 

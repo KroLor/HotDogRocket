@@ -7,7 +7,8 @@
                 "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
                 "${workspaceFolder}/FATFS/App",
-                "${workspaceFolder}/Middlewares/Third_Party/FatFs/src"
+                "${workspaceFolder}/Middlewares/Third_Party/FatFs/src",
+                "${workspaceFolder}/FATFS/Target"
             ],
             "defines": [],
             "compilerPath": "c:\\Users\\Kirill\\AppData\\Roaming\\Code\\User\\globalStorage\\bmd.stm32-for-vscode\\@xpack-dev-tools\\arm-none-eabi-gcc\\14.2.1-1.1.1\\.content\\bin\\arm-none-eabi-gcc.EXE"

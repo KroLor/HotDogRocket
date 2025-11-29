@@ -10,14 +10,14 @@ void initSensors() {
     ledState lState;
 
     // BMP280
-    if (BMx280_init(I2C_BMP280, 101325) == HAL_OK) { lState.BMP280 = 1; }
+    if (BMx280_init(&I2C_BMP280, 101325) == HAL_OK) { lState.BMP280 = 1; }
     BMx280_normal_measure();
 
     // SD
     FATFS FatFs;
     FIL Fil;
     FRESULT FR_Status;
-    
+
     if (f_mount(&FatFs, "", 1) == FR_OK) { lState.SD = 1; }
 
     FR_Status = f_open(&Fil, "Logs.txt", FA_WRITE | FA_CREATE_ALWAYS);
