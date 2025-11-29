@@ -4,6 +4,8 @@
         "stm32f4xx_hal.h": "c",
         "led.h": "c",
         "gpio.h": "c",
-        "definitions.h": "c"
+        "definitions.h": "c",
+        "fatfs.h": "c",
+        "algorithm.h": "c"
     }
 }

@@ -15,7 +15,14 @@
 #define GPIO_LED_TS 
 #define GPIO_PIN_LED_TS 
 
+//
+
 #define I2C_BMP280 
 #define SPI_SD 
+
+// Замена в extern SPI_HandleTypeDef hspi2;
+#define SPI_SD_H  // &hspix
+#define GPIO_SD_CS 
+#define GPIO_PIN_SD_CS 
 
 #endif
