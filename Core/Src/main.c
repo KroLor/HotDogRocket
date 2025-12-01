@@ -18,11 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "fatfs.h"
 #include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdbool.h"
 #include "definitions.h"
 #include "algorithm.h"
 
@@ -46,7 +48,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-SPI_HandleTypeDef hspiX;
+char status_flight = WAITING;
+bool isActivRS = false;
 
 /* USER CODE END PV */
 
@@ -58,6 +61,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+HAL_TIM_Base_Start_IT(&htim5);
 
 /* USER CODE END 0 */
 
@@ -90,11 +94,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM2_Init();
+  MX_FATFS_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM5_Init();
-  MX_FATFS_Init();
+  MX_TIM2_Init();
+  MX_TIM9_Init();
+  MX_TIM12_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -103,8 +109,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-    HAL_Delay(1000);
+    // if (status_flight == WAITING) {
+
+    // }
+
+    // if (status_flight == FLIGHT) {
+
+    // }
+
+    if (status_flight == APOGEE) {
+      isActivRS = activRS();
+
+      if (isActivRS) {
+        status_flight = LANDING;
+      }
+    }
+
+    if (status_flight == LANDING) {
+
+    }
+
+    if (status_flight == GROUND) {
+
+    }
 
     /* USER CODE END WHILE */
 

@@ -7,6 +7,7 @@
                 "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
                 "${workspaceFolder}/FATFS/App",
+                "${workspaceFolder}/**",
                 "${workspaceFolder}/Middlewares/Third_Party/FatFs/src",
                 "${workspaceFolder}/FATFS/Target"
             ],

@@ -6,8 +6,8 @@
 **
 **  Author		: STM32CubeMX
 **
-**  Abstract    : Linker script for STM32F411CEUx series
-**                512Kbytes FLASH and 128Kbytes RAM
+**  Abstract    : Linker script for STM32F405RGTx series
+**                1024Kbytes FLASH and 192Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -56,7 +56,8 @@ ENTRY(Reset_Handler)
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
+CCMRAM (xrw)      : ORIGIN = 0x10000000, LENGTH = 64K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 1024K
 }
 
 /* Highest address of the user mode stack */
@@ -146,6 +147,25 @@ SECTIONS
     PROVIDE_HIDDEN (__fini_array_end = .);
     . = ALIGN(4);
   } >FLASH
+
+  _siccmram = LOADADDR(.ccmram);
+
+  /* CCM-RAM section
+  *
+  * IMPORTANT NOTE!
+  * If initialized variables will be placed in this section,
+  * the startup code needs to be modified to copy the init-values.
+  */
+  .ccmram :
+  {
+    . = ALIGN(4);
+    _sccmram = .;       /* create a global symbol at ccmram start */
+    *(.ccmram)
+    *(.ccmram*)
+
+    . = ALIGN(4);
+    _eccmram = .;       /* create a global symbol at ccmram end */
+  } >CCMRAM AT> FLASH
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);

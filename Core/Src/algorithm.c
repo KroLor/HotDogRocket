@@ -3,6 +3,12 @@
 #include "BMx280.h"
 #include "fatfs.h"
 
+#define AVERAGE_INITIAL_PRESSURE 100525
+
+FATFS FatFs;
+FIL Fil; // File
+FRESULT FR_Status;
+
 float pressure, temperature, altitude;
 float altitude_bf;
 
@@ -10,14 +16,10 @@ void initSensors() {
     ledState lState;
 
     // BMP280
-    if (BMx280_init(&I2C_BMP280, 101325) == HAL_OK) { lState.BMP280 = 1; }
+    if (BMx280_init(&I2C_BMP280, AVERAGE_INITIAL_PRESSURE) == HAL_OK) { lState.BMP280 = 1; }
     BMx280_normal_measure();
 
     // SD
-    FATFS FatFs;
-    FIL Fil;
-    FRESULT FR_Status;
-
     if (f_mount(&FatFs, "", 1) == FR_OK) { lState.SD = 1; }
 
     FR_Status = f_open(&Fil, "Logs.txt", FA_WRITE | FA_CREATE_ALWAYS);
@@ -32,7 +34,11 @@ void initSensors() {
 }
 
 void readSensors() {
-    // BMP280_get_measure()
+    // BMP280
+    BMP280_get_measure(&temperature, &pressure, &altitude);
+
+    // TS
+
 }
 
 void checkApogee() {
@@ -40,10 +46,10 @@ void checkApogee() {
 }
 
 void writeSD() {
-
+    
 }
 
-void activRS() {
+bool activRS() {
 
 }
 

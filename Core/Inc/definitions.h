@@ -5,6 +5,8 @@
 // TIM3 - to apogee
 // TIM4 - to ground
 // TIM5 - to read sensors
+// TIM9 - SD write
+// TIM12 - check apogee
 
 #define GPIO_LED_BPM280 
 #define GPIO_PIN_LED_BPM280 

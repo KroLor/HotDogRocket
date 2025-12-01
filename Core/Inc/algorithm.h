@@ -1,10 +1,11 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
+#include "stdbool.h"
 #include "definitions.h"
 
 enum statusFlight {
-    WAITING,
+    WAITING = 0,
     FLIGHT,
     APOGEE,
     LANDING,
@@ -15,7 +16,7 @@ void initSensors();
 void readSensors();
 void checkApogee();
 void writeSD();
-void activRS();
+bool activRS();
 void sleepMode();
 
 #endif
