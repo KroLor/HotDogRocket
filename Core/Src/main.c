@@ -50,7 +50,8 @@
 
 /* USER CODE BEGIN PV */
 char status_flight = WAITING;
-bool isActivRS = false;
+bool isActivRS = false; // СС сработала?
+// bool canActivRS = true; // Можно активировать СС?
 
 /* USER CODE END PV */
 
@@ -99,8 +100,6 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM5_Init();
   MX_TIM2_Init();
-  MX_TIM9_Init();
-  MX_TIM12_Init();
   MX_ADC1_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
@@ -119,14 +118,19 @@ int main(void)
 
     // }
 
-    // if (status_flight == FLIGHT) {
-
-    // }
+    if (status_flight == FLIGHT) {
+      checkApogee();
+    }
 
     if (status_flight == APOGEE) {
-      isActivRS = activRS();
+      for (char i = 0; i < 4; i++) {
+        activRS();
+        HAL_Delay(350);
 
-      if (isActivRS) {
+        if (checkRS() == true) { isActivRS = true; break; }
+      }
+
+      if (isActivRS || !isActivRS) {
         status_flight = LANDING;
       }
     }

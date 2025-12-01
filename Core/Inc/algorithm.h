@@ -3,8 +3,6 @@
 
 #include "stdbool.h"
 
-float temp[5] = {0.0f};
-
 enum statusFlight {
     WAITING = 0,
     FLIGHT,
@@ -14,11 +12,15 @@ enum statusFlight {
 };
 
 float calcTemp(uint16_t adc_value);
+
 void initSensors();
 void readSensors();
 void checkApogee();
 void writeSD();
-bool activRS();
+
+void activRS();
+bool checkRS();
+
 void sleepMode();
 
 #endif

@@ -6,6 +6,7 @@
         "gpio.h": "c",
         "definitions.h": "c",
         "fatfs.h": "c",
-        "algorithm.h": "c"
+        "algorithm.h": "c",
+        "adc.h": "c"
     }
 }

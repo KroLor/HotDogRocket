@@ -21,7 +21,7 @@
 #include "adc.h"
 
 /* USER CODE BEGIN 0 */
-#include "algorithm.h"
+extern float temp[NUMBER_T_SENSORS];
 
 /* USER CODE END 0 */
 
@@ -180,13 +180,13 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 /* USER CODE BEGIN 1 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
     static uint8_t chan_index = 0;
-    static uint16_t adc_buffer[5];
+    static uint16_t adc_buffer[NUMBER_T_SENSORS];
     
     adc_buffer[chan_index] = HAL_ADC_GetValue(hadc);
     chan_index++;
     
-    if (chan_index >= 5) {
-        for (char i = 0; i < 5; i++) {
+    if (chan_index >= NUMBER_T_SENSORS) {
+        for (char i = 0; i < NUMBER_T_SENSORS; i++) {
             temp[i] = calcTemp(adc_buffer[i]);
         }
         chan_index = 0;

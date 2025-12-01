@@ -18,7 +18,13 @@ FIL Fil; // File
 FRESULT FR_Status;
 
 float pressure, temperature, altitude;
-float altitude_bf;
+float altitude_bf[2];
+float temp[NUMBER_T_SENSORS] = {0.0f};
+
+bool can_read_sensors = true;
+bool apogee = false;
+
+extern char status_flight;
 
 float calcTemp(uint16_t adc_value) {
     float res = NTC_SERIES_RESISTOR * (adc_value / ADC_MAX_VALUE / (1.0f - adc_value / ADC_MAX_VALUE));
@@ -59,17 +65,29 @@ void initSensors() {
 void readSensors() {
     // BMP280
     BMP280_get_measure(&temperature, &pressure, &altitude);
+
+    // TS в буфере temp
+
+    writeSD();
+
+    can_read_sensors = true;
 }
 
 void checkApogee() {
 
+
+    if (apogee) { status_flight = APOGEE; }
 }
 
 void writeSD() {
     
 }
 
-bool activRS() {
+void activRS() {
+
+}
+
+bool checkRS() {
 
 }
 
@@ -80,6 +98,5 @@ void sleepMode() {
     HAL_TIM_Base_Stop_IT(&htim4);
     HAL_TIM_Base_Stop_IT(&htim5);
     HAL_TIM_Base_Stop_IT(&htim8);
-    HAL_TIM_Base_Stop_IT(&htim9);
     HAL_TIM_Base_Stop_IT(&htim12);
 }

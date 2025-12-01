@@ -29,6 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#define NUMBER_T_SENSORS 5
 
 /* USER CODE END Includes */
 
