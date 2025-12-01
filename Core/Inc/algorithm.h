@@ -2,7 +2,8 @@
 #define ALGORITHM_H
 
 #include "stdbool.h"
-#include "definitions.h"
+
+float temp[5] = {0.0f};
 
 enum statusFlight {
     WAITING = 0,
@@ -12,6 +13,7 @@ enum statusFlight {
     GROUND
 };
 
+float calcTemp(uint16_t adc_value);
 void initSensors();
 void readSensors();
 void checkApogee();

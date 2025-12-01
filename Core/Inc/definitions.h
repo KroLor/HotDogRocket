@@ -1,10 +1,11 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
-// TIM2 CH1 - Servo
+// TIM2 (CH1) - Servo
 // TIM3 - to apogee
 // TIM4 - to ground
 // TIM5 - to read sensors
+// TIM8 - to read temp
 // TIM9 - SD write
 // TIM12 - check apogee
 

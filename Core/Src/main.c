@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "fatfs.h"
 #include "tim.h"
 #include "gpio.h"
@@ -61,7 +62,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-HAL_TIM_Base_Start_IT(&htim5);
 
 /* USER CODE END 0 */
 
@@ -101,7 +101,13 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM9_Init();
   MX_TIM12_Init();
+  MX_ADC1_Init();
+  MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim5);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+  HAL_ADC_Start_IT(&hadc1);
 
   /* USER CODE END 2 */
 
@@ -125,12 +131,13 @@ int main(void)
       }
     }
 
-    if (status_flight == LANDING) {
+    // if (status_flight == LANDING) {
 
-    }
+    // }
 
     if (status_flight == GROUND) {
-
+      sleepMode();
+      break;
     }
 
     /* USER CODE END WHILE */
