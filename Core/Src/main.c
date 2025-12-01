@@ -18,9 +18,16 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "fatfs.h"
+#include "tim.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdbool.h"
+#include "definitions.h"
+#include "algorithm.h"
 
 /* USER CODE END Includes */
 
@@ -42,6 +49,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+char status_flight = WAITING;
+bool isActivRS = false; // СС сработала?
+// bool canActivRS = true; // Можно активировать СС?
 
 /* USER CODE END PV */
 
@@ -84,7 +94,19 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_FATFS_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM5_Init();
+  MX_TIM2_Init();
+  MX_ADC1_Init();
+  MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim5);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+  HAL_ADC_Start_IT(&hadc1);
 
   /* USER CODE END 2 */
 
@@ -92,6 +114,36 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    // if (status_flight == WAITING) {
+
+    // }
+
+    if (status_flight == FLIGHT) {
+      checkApogee();
+    }
+
+    if (status_flight == APOGEE) {
+      for (char i = 0; i < 4; i++) {
+        activRS();
+        HAL_Delay(350);
+
+        if (checkRS() == true) { isActivRS = true; break; }
+      }
+
+      if (isActivRS || !isActivRS) {
+        status_flight = LANDING;
+      }
+    }
+
+    // if (status_flight == LANDING) {
+
+    // }
+
+    if (status_flight == GROUND) {
+      sleepMode();
+      break;
+    }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

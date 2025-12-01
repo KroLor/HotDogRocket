@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "led.h": "c",
+        "gpio.h": "c",
+        "definitions.h": "c",
+        "fatfs.h": "c",
+        "algorithm.h": "c",
+        "adc.h": "c"
+    }
+}
