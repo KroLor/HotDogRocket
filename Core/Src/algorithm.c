@@ -98,5 +98,4 @@ void sleepMode() {
     HAL_TIM_Base_Stop_IT(&htim4);
     HAL_TIM_Base_Stop_IT(&htim5);
     HAL_TIM_Base_Stop_IT(&htim8);
-    HAL_TIM_Base_Stop_IT(&htim12);
 }
